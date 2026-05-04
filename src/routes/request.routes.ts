@@ -52,8 +52,6 @@ const requestController = RequestFactory.create();
  *       - Request
  *     summary: Create request.
  *     description: Generate request.
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

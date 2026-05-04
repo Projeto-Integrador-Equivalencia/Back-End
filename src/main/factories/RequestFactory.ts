@@ -19,7 +19,10 @@ export class RequestFactory {
     const repository = new SequelizeRequestRepository();
     const logRepo = new ActionLogRepository();
 
-    const addObservationService = new AddObservationService(repository);
+    const addObservationService = new AddObservationService(
+      repository,
+      logRepo,
+    );
     const cancelRequestService = new CancelRequestService(repository);
     const checkDuplicityService = new CheckDuplicityService(repository);
     const createRequestService = new CreateRequestService(repository, logRepo);
@@ -28,7 +31,7 @@ export class RequestFactory {
     const findByProtocolService = new FindByProtocolService(repository);
     const findByStudentService = new FindByStudentService(repository);
     const generateProtocolService = new GenerateProtocolService(repository);
-    const updateStatusService = new UpdateStatusService(repository);
+    const updateStatusService = new UpdateStatusService(repository, logRepo);
 
     return new RequestController(
       addObservationService,
