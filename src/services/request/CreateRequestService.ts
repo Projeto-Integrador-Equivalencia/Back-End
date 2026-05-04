@@ -4,6 +4,10 @@ import { IRequestRepository } from '../../domain/repositories/IRequestRepository
 import { ActionLog } from '../../domain/entities/ActionLog';
 import { IActionLogRepository } from '../../domain/repositories/IActionLogRepository';
 
+import { IMailProvider } from '../../domain/providers/IMailProvider';
+
+import { IStudentRepository } from '../../domain/repositories/IStudentRepository';
+
 export type RequestDTO = Omit<
   RequestProps,
   'id' | 'status' | 'observation' | 'protocol' | 'Documents'
@@ -12,6 +16,8 @@ export class CreateRequestService {
   constructor(
     private requestRepo: IRequestRepository,
     private logRepo: IActionLogRepository,
+    private mailProvider: IMailProvider,
+    private studentRepo: IStudentRepository,
   ) {}
 
   async execute(
@@ -52,6 +58,20 @@ export class CreateRequestService {
       author: logInfo.author,
       authorRole: logInfo.authorRole,
       createdAt: new Date(),
+    });
+
+    const student = await this.studentRepo.findById(requestData.studentId);
+
+    if (!student) {
+      throw new Error('Falha ao obter ID do estudante para envio de email.');
+    }
+
+    const requestUrl = `http://localhost:3000/requests/${savedRequest.props.id}`;
+
+    await this.mailProvider.sendMail({
+      to: student.props.email,
+      subject: 'Solicitação de Equivalência Criada',
+      body: `<p>Olá ${student.props.name}! Sua solicitação de equivalência foi criada com sucesso. Para visualizá-la, clique no link: <a href="${requestUrl}">${requestUrl}</a></p>`,
     });
 
     await this.logRepo.save(newLog);

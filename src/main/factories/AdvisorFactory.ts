@@ -7,7 +7,7 @@ import { AdvisorController } from '../../controllers/AdvisorController';
 
 import { SequelizeUserRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeUserRepository';
 
-export const MakeAdvisorController = () => {
+export const AdvisorFactory = () => {
   const advisorRepository = new SequelizeAdvisorRepository();
   const userRepository = new SequelizeUserRepository();
 

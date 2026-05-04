@@ -7,7 +7,7 @@ import { CourseController } from '../../controllers/CourseController';
 
 import { SequelizeAdminRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeAdminRepository';
 
-export const makeCourseController = () => {
+export const CourseFactory = () => {
   const courseRepository = new SequelizeCourseRepository();
   const adminRepository = new SequelizeAdminRepository();
 

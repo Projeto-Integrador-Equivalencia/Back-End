@@ -6,7 +6,7 @@ import { GetAdminByEmailService } from '../../services/admin/GetAdminByEmailServ
 import { AdminController } from '../../controllers/AdminController';
 import { SequelizeUserRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeUserRepository';
 
-export const MakeAdminController = () => {
+export const AdminFactory = () => {
   const adminRepository = new SequelizeAdminRepository();
   const userRepository = new SequelizeUserRepository();
 

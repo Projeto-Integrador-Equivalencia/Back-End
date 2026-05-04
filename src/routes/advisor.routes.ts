@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { MakeAdvisorController } from '../main/factories/makeAdvisorController';
+import { AdvisorFactory } from '../main/factories/AdvisorFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 import { authorize } from '../infrastructure/http/middlewares/RoleMiddleware';
 
@@ -70,7 +70,7 @@ advisorRouter.get(
   authMiddleware,
   authorize(['advisor']),
   (req, res) => {
-    return MakeAdvisorController().getById(req, res);
+    return AdvisorFactory().getById(req, res);
   },
 );
 
@@ -104,7 +104,7 @@ advisorRouter.get(
   authMiddleware,
   authorize(['advisor']),
   (req, res) => {
-    return MakeAdvisorController().getByCpf(req, res);
+    return AdvisorFactory().getByCpf(req, res);
   },
 );
 
@@ -138,7 +138,7 @@ advisorRouter.get(
   authMiddleware,
   authorize(['advisor']),
   (req, res) => {
-    return MakeAdvisorController().getByEmail(req, res);
+    return AdvisorFactory().getByEmail(req, res);
   },
 );
 
@@ -172,7 +172,7 @@ advisorRouter.post(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return MakeAdvisorController().create(req, res);
+    return AdvisorFactory().create(req, res);
   },
 );
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { makeStudentController } from '../main/factories/makeStudentController';
+import { StudentFactory } from '../main/factories/StudentFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 
 const studentRouter = Router();
@@ -77,7 +77,7 @@ const studentRouter = Router();
  *         description: Internal server error
  */
 studentRouter.get('/:id', authMiddleware, (req, res) => {
-  return makeStudentController().getById(req, res);
+  return StudentFactory().getById(req, res);
 });
 
 /**
@@ -106,7 +106,7 @@ studentRouter.get('/:id', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 studentRouter.get('/search/cpf', authMiddleware, (req, res) => {
-  return makeStudentController().getByCpf(req, res);
+  return StudentFactory().getByCpf(req, res);
 });
 
 /**
@@ -134,7 +134,7 @@ studentRouter.get('/search/cpf', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 studentRouter.get('/search/email', authMiddleware, (req, res) => {
-  return makeStudentController().getByEmail(req, res);
+  return StudentFactory().getByEmail(req, res);
 });
 
 /**
@@ -161,7 +161,7 @@ studentRouter.get('/search/email', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 studentRouter.post('/', (req, res) => {
-  return makeStudentController().create(req, res);
+  return StudentFactory().create(req, res);
 });
 
 export default studentRouter;

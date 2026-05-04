@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { MakeAdminController } from '../main/factories/makeAdminController';
+import { AdminFactory } from '../main/factories/AdminFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 import { authorize } from '../infrastructure/http/middlewares/RoleMiddleware';
 
@@ -70,7 +70,7 @@ adminRouter.get(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return MakeAdminController().getById(req, res);
+    return AdminFactory().getById(req, res);
   },
 );
 
@@ -104,7 +104,7 @@ adminRouter.get(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return MakeAdminController().getByCpf(req, res);
+    return AdminFactory().getByCpf(req, res);
   },
 );
 
@@ -138,7 +138,7 @@ adminRouter.get(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return MakeAdminController().getByEmail(req, res);
+    return AdminFactory().getByEmail(req, res);
   },
 );
 
@@ -172,7 +172,7 @@ adminRouter.post(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return MakeAdminController().create(req, res);
+    return AdminFactory().create(req, res);
   },
 );
 

@@ -7,7 +7,7 @@ import { StudentController } from '../../controllers/StudentController';
 import { SequelizeCourseRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeCourseRepository';
 import { SequelizeUserRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeUserRepository';
 
-export const makeStudentController = () => {
+export const StudentFactory = () => {
   //Instancia o repositório do Sequelize
   const studentRepository = new SequelizeStudentRepository();
   const courseRepository = new SequelizeCourseRepository();
