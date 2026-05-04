@@ -78,7 +78,16 @@ export class RequestController {
       const { id } = req.params;
       const { observation } = req.body;
 
-      await this.addObservationService.execute(Number(id), observation);
+      const logInfo = {
+        author: req.user!.name,
+        authorRole: req.user!.role,
+      };
+
+      await this.addObservationService.execute(
+        Number(id),
+        logInfo,
+        observation,
+      );
 
       return res.status(200).json({
         message: 'Observação adicionado com sucesso!',
@@ -248,7 +257,12 @@ export class RequestController {
       const { id } = req.params;
       const { status } = req.body;
 
-      await this.updateStatusService.execute(Number(id), status);
+      const logInfo = {
+        author: req.user!.name,
+        authorRole: req.user!.role,
+      };
+
+      await this.updateStatusService.execute(Number(id), logInfo, status);
 
       return res.status(200).json({
         status: 'Success!',
