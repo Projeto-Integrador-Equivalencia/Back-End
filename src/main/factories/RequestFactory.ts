@@ -1,6 +1,7 @@
 import { RequestController } from '../../controllers/RequestController';
 import { SequelizeRequestRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeRequestRepository';
 import { SequelizeStudentRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeStudentRepository';
+import { SequelizeAdvisorRepository } from '../../infrastructure/database/sequelize/repositories/SequelizeAdvisorRepository';
 import { ActionLogRepository } from '../../infrastructure/database/mongoose/repositories/ActionLogRepository';
 import { EtheralMailProvider } from '../../infrastructure/mail/EtheralMailProvider';
 
@@ -21,20 +22,41 @@ export class RequestFactory {
     const logRepository = new ActionLogRepository();
     const mailProvider = new EtheralMailProvider();
     const studentRepository = new SequelizeStudentRepository();
+    const advisorRepository = new SequelizeAdvisorRepository();
 
     const addObservationService = new AddObservationService(
       requestRepository,
       logRepository,
+      mailProvider,
+      studentRepository,
+      advisorRepository,
     );
     const cancelRequestService = new CancelRequestService(requestRepository);
     const checkDuplicityService = new CheckDuplicityService(requestRepository);
-    const createRequestService = new CreateRequestService(requestRepository, logRepository, mailProvider, studentRepository);
-    const findAdvisorCourseService = new FindAdvisorCourseService(requestRepository);
-    const findByIdService = new FindByIdService(requestRepository, logRepository);
+    const createRequestService = new CreateRequestService(
+      requestRepository,
+      logRepository,
+      mailProvider,
+      studentRepository,
+    );
+    const findAdvisorCourseService = new FindAdvisorCourseService(
+      requestRepository,
+    );
+    const findByIdService = new FindByIdService(
+      requestRepository,
+      logRepository,
+    );
     const findByProtocolService = new FindByProtocolService(requestRepository);
     const findByStudentService = new FindByStudentService(requestRepository);
-    const generateProtocolService = new GenerateProtocolService(requestRepository);
-    const updateStatusService = new UpdateStatusService(requestRepository, logRepository);
+    const generateProtocolService = new GenerateProtocolService(
+      requestRepository,
+    );
+    const updateStatusService = new UpdateStatusService(
+      requestRepository,
+      logRepository,
+      mailProvider,
+      studentRepository,
+    );
 
     return new RequestController(
       addObservationService,

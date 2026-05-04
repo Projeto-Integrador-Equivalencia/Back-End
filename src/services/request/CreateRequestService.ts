@@ -63,7 +63,7 @@ export class CreateRequestService {
     const student = await this.studentRepo.findById(requestData.studentId);
 
     if (!student) {
-      throw new Error('Falha ao obter ID do estudante para envio de email.');
+      throw new Error('Falha ao obter ID do estudante para envio de E-mail.');
     }
 
     const requestUrl = `http://localhost:3000/requests/${savedRequest.props.id}`;
