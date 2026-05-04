@@ -6,7 +6,7 @@ import { FindByIdService } from '../../services/equivalency/FindByIdService';
 import { UpdateEquivalency } from '../../services/equivalency/UpdateEquivalency';
 import { EquivalencyController } from '../../controllers/EquivalencyController';
 
-export const makeEquivalencyController = () => {
+export const EquivalencyFactory = () => {
   const equivalencyRepository = new SequelizeEquivalencyRepository();
 
   const createEquivalencyService = new CreateEquivalencyService(

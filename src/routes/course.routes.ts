@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { makeCourseController } from '../main/factories/makeCourseController';
+import { CourseFactory } from '../main/factories/CourseFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 import { authorize } from '../infrastructure/http/middlewares/RoleMiddleware';
 
@@ -60,7 +60,7 @@ const courseRouter = Router();
  *         description: Internal server error
  */
 courseRouter.get('/', authMiddleware, (req, res) => {
-  return makeCourseController().findAll(req, res);
+  return CourseFactory().findAll(req, res);
 });
 
 /**
@@ -89,7 +89,7 @@ courseRouter.get('/', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 courseRouter.get('/search/code', authMiddleware, (req, res) => {
-  return makeCourseController().findByCode(req, res);
+  return CourseFactory().findByCode(req, res);
 });
 
 /**
@@ -118,7 +118,7 @@ courseRouter.get('/search/code', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 courseRouter.get('/:id', authMiddleware, authorize(['student']), (req, res) => {
-  return makeCourseController().findById(req, res);
+  return CourseFactory().findById(req, res);
 });
 
 /**
@@ -151,7 +151,7 @@ courseRouter.post(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return makeCourseController().create(req, res);
+    return CourseFactory().create(req, res);
   },
 );
 

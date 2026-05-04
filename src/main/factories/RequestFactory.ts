@@ -12,23 +12,32 @@ import { FindByProtocolService } from '../../services/request/FindByProtocolServ
 import { FindByStudentService } from '../../services/request/FindByStudentService';
 import { GenerateProtocolService } from '../../services/request/GenerateProtocolService';
 import { UpdateStatusService } from '../../services/request/UpdateStatusService';
-import { log } from 'console';
 
 export class RequestFactory {
   static create(): RequestController {
-    const repository = new SequelizeRequestRepository();
-    const logRepo = new ActionLogRepository();
+    const requestRepository = new SequelizeRequestRepository();
+    const logRepository = new ActionLogRepository();
 
-    const addObservationService = new AddObservationService(repository);
-    const cancelRequestService = new CancelRequestService(repository);
-    const checkDuplicityService = new CheckDuplicityService(repository);
-    const createRequestService = new CreateRequestService(repository, logRepo);
-    const findAdvisorCourseService = new FindAdvisorCourseService(repository);
-    const findByIdService = new FindByIdService(repository, logRepo);
-    const findByProtocolService = new FindByProtocolService(repository);
-    const findByStudentService = new FindByStudentService(repository);
-    const generateProtocolService = new GenerateProtocolService(repository);
-    const updateStatusService = new UpdateStatusService(repository);
+    const addObservationService = new AddObservationService(requestRepository);
+    const cancelRequestService = new CancelRequestService(requestRepository);
+    const checkDuplicityService = new CheckDuplicityService(requestRepository);
+    const createRequestService = new CreateRequestService(
+      requestRepository,
+      logRepository,
+    );
+    const findAdvisorCourseService = new FindAdvisorCourseService(
+      requestRepository,
+    );
+    const findByIdService = new FindByIdService(
+      requestRepository,
+      logRepository,
+    );
+    const findByProtocolService = new FindByProtocolService(requestRepository);
+    const findByStudentService = new FindByStudentService(requestRepository);
+    const generateProtocolService = new GenerateProtocolService(
+      requestRepository,
+    );
+    const updateStatusService = new UpdateStatusService(requestRepository);
 
     return new RequestController(
       addObservationService,

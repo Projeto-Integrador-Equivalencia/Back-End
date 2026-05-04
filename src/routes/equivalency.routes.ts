@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { makeEquivalencyController } from '../main/factories/makeEquivalencyController';
+import { EquivalencyFactory } from '../main/factories/EquivalencyFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 import { authorize } from '../infrastructure/http/middlewares/RoleMiddleware';
 
@@ -53,10 +53,10 @@ const equivalencyRouter = Router();
  *         description: Internal server error
  */
 equivalencyRouter.get('/', authMiddleware, (req, res) => {
-  return makeEquivalencyController().findAll(req, res);
+  return EquivalencyFactory().findAll(req, res);
 });
 
-/**
+/**EquivalencyFactory
  * @swagger
  * /equivalencies/search?name={name}:
  *   get:
@@ -82,7 +82,7 @@ equivalencyRouter.get('/', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 equivalencyRouter.get('/search', authMiddleware, (req, res) => {
-  return makeEquivalencyController().findByName(req, res);
+  return EquivalencyFactory().findByName(req, res);
 });
 
 /**
@@ -113,7 +113,7 @@ equivalencyRouter.get('/search', authMiddleware, (req, res) => {
  *         description: Internal server error
  */
 equivalencyRouter.get('/:id', authMiddleware, (req, res) => {
-  return makeEquivalencyController().findById(req, res);
+  return EquivalencyFactory().findById(req, res);
 });
 
 /**
@@ -146,7 +146,7 @@ equivalencyRouter.post(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return makeEquivalencyController().create(req, res);
+    return EquivalencyFactory().create(req, res);
   },
 );
 
@@ -185,7 +185,7 @@ equivalencyRouter.patch(
   authMiddleware,
   authorize(['administrator']),
   (req, res) => {
-    return makeEquivalencyController().update(req, res);
+    return EquivalencyFactory().update(req, res);
   },
 );
 
