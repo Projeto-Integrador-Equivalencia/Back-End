@@ -3,6 +3,7 @@ import { RequestFactory } from '../main/factories/RequestFactory';
 import { upload } from '../infrastructure/http/middlewares/upload';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 import { authorize } from '../infrastructure/http/middlewares/RoleMiddleware';
+import { VerifyAdvisor } from '../middlewares/VerifyAdvisor';
 
 const requestRoutes = Router();
 const requestController = RequestFactory.create();
@@ -314,6 +315,7 @@ requestRoutes.patch(
   '/:id/status',
   authMiddleware,
   authorize(['advisor']),
+  VerifyAdvisor,
   (req, res) => requestController.updatedStatus(req, res),
 );
 
@@ -358,6 +360,7 @@ requestRoutes.patch(
   '/:id/observation',
   authMiddleware,
   authorize(['advisor']),
+  VerifyAdvisor,
   (req, res) => requestController.addObservation(req, res),
 );
 
@@ -391,6 +394,13 @@ requestRoutes.delete(
   authMiddleware,
   authorize(['student']),
   (req, res) => requestController.cancel(req, res),
+);
+
+requestRoutes.patch(
+  '/:id/',
+  authMiddleware,
+  authorize(['advisor']),
+  (req, res) => requestController.assignAdvisor(req, res),
 );
 
 export default requestRoutes;
