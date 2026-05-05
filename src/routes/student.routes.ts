@@ -164,4 +164,8 @@ studentRouter.post('/', (req, res) => {
   return StudentFactory().create(req, res);
 });
 
+studentRouter.patch('/:id', (req, res) => {
+  return StudentFactory().create(req, res);
+});
+
 export default studentRouter;

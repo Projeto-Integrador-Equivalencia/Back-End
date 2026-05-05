@@ -12,7 +12,7 @@ import { FindByProtocolService } from '../services/request/FindByProtocolService
 import { FindByStudentService } from '../services/request/FindByStudentService';
 import { GenerateProtocolService } from '../services/request/GenerateProtocolService';
 import { UpdateStatusService } from '../services/request/UpdateStatusService';
-import { ProfessionalExperience } from '../domain/entities/ProfessionalExperience';
+import { AssignAdvisorService } from '../services/request/AssignAdvisorService';
 
 export class RequestController {
   constructor(
@@ -26,6 +26,7 @@ export class RequestController {
     private findByStudentService: FindByStudentService,
     private generateProtocolService: GenerateProtocolService,
     private updateStatusService: UpdateStatusService,
+    private assignAdvisorService: AssignAdvisorService,
   ) {}
 
   async create(req: Request, res: Response): Promise<Response> {
@@ -271,6 +272,40 @@ export class RequestController {
     } catch (error: any) {
       return res.status(400).json({
         message: error.message,
+      });
+    }
+  }
+
+  async assignAdvisor(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return res
+          .status(400)
+          .json({ error: 'ID da solicitação é obrigatório.' });
+      }
+
+      const advisorId = req.user!.id;
+
+      if (!advisorId) {
+        return res.status(400).json({ error: 'Orientador não encontrado.' });
+      }
+
+      const logInfo = {
+        author: req.user!.name,
+        authorRole: req.user!.role,
+      };
+
+      await this.assignAdvisorService.execute(advisorId, Number(id), logInfo);
+
+      return res.status(200).json({
+        status: 'Success',
+        message: 'Solicitação vinculada!',
+      });
+    } catch (error: any) {
+      return res.status(400).json({
+        error: error.message,
       });
     }
   }

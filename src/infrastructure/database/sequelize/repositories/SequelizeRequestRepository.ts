@@ -117,4 +117,14 @@ export class SequelizeRequestRepository implements IRequestRepository {
 
     return `REQ-${year}-${(count + 1).toString().padStart(4, '0')}`;
   }
+
+  async assignAdvisor(advisorId: number, requestId: number): Promise<void> {
+    const request = await RequestModel.findByPk(requestId);
+
+    if (!request) {
+      throw new Error('Solicitação não encontrada.');
+    }
+
+    await request.update({ advisorId: advisorId });
+  }
 }

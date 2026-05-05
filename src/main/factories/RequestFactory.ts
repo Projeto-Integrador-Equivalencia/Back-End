@@ -15,6 +15,7 @@ import { FindByProtocolService } from '../../services/request/FindByProtocolServ
 import { FindByStudentService } from '../../services/request/FindByStudentService';
 import { GenerateProtocolService } from '../../services/request/GenerateProtocolService';
 import { UpdateStatusService } from '../../services/request/UpdateStatusService';
+import { AssignAdvisorService } from '../../services/request/AssignAdvisorService';
 
 export class RequestFactory {
   static create(): RequestController {
@@ -57,6 +58,13 @@ export class RequestFactory {
       mailProvider,
       studentRepository,
     );
+    const assignAdvisorService = new AssignAdvisorService(
+      requestRepository,
+      advisorRepository,
+      logRepository,
+      mailProvider,
+      studentRepository,
+    );
 
     return new RequestController(
       addObservationService,
@@ -69,6 +77,7 @@ export class RequestFactory {
       findByStudentService,
       generateProtocolService,
       updateStatusService,
+      assignAdvisorService,
     );
   }
 }

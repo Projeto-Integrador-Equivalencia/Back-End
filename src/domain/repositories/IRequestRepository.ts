@@ -11,4 +11,5 @@ export interface IRequestRepository {
   findByProtocol(protocol: string): Promise<Request | null>;
   checkDuplicity(studentId: number, equivalencyId: number): Promise<boolean>;
   generateProtocol(): Promise<string>;
+  assignAdvisor(advisorId: number, requestId: number): Promise<void>;
 }
