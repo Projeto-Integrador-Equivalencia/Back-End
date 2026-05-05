@@ -396,6 +396,36 @@ requestRoutes.delete(
   (req, res) => requestController.cancel(req, res),
 );
 
+
+/**
+ * @swagger
+ * /requests/{id}:
+ *   patch:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Request
+ *     summary: Assign an advisor to a request.
+ *     description: Assign an advisor to a request.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: Request ID
+ *     responses:
+ *       '200':
+ *         description: A successful response
+ *       '400':
+ *         description: Invalid request or advisor not found
+ *       '403':
+ *         description: Forbidden - This endpoint already has an assigned advisor
+ *       '404':
+ *         description: Advisor not found
+ *       '500':
+ *         description: Internal server error
+ */
 requestRoutes.patch(
   '/:id/',
   authMiddleware,

@@ -289,7 +289,7 @@ export class RequestController {
       const advisorId = req.user!.id;
 
       if (!advisorId) {
-        return res.status(400).json({ error: 'Orientador não encontrado.' });
+        return res.status(404).json({ error: 'Orientador não encontrado.' });
       }
 
       const logInfo = {
