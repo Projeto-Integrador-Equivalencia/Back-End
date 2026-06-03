@@ -1,10 +1,10 @@
 Projeto Integrador: Equivalência de Estágio Backend
 
-API desenvolvida para a gestão e automação do processo de equivalência de estágio para a Instituição de Ensino Superior FATEC. O sistema permite o gerenciamento completo desde a submissão de documentos pelo aluno até a aprovação final por orientadores, junto da gestão realizada por administradores.
+API desenvolvida para a gestão e automação do processo de equivalência de estágio para a Instituição de Ensino Superior FATEC. O sistema permite desde o envio de documentos necessário para validação de maneira 100% digital pelo aluno até a aprovação final por orientadores, junto da gestão realizada por administradores.
 
 🎨 Interface Visual (UI/UX)
 
-O design da interface foi planejado para priorizar a usabilidade e a clareza no fluxo de solicitações. Você pode explorar o protótipo completo através do link abaixo:
+O design prioriza a usabilidade e clareza no fluxo do usuário enquanto se mantém fiel a identidade visual da instituição em uma interface moderna e minimalista. Você pode explorar o protótipo completo através do link abaixo:
 
     https://www.figma.com/design/jojPPmbp5e1uAdYcMuK8ms/Fatec?node-id=0-1&t=6ECgk4cMjcZrMZsx-1
 
@@ -12,16 +12,16 @@ O design da interface foi planejado para priorizar a usabilidade e a clareza no 
 
 Este projeto utiliza uma stack moderna e escalável:
 
-    Runtime: Node.js
+    Ambiente: Node.js
 
     Linguagem: TypeScript
 
     Framework Web: Express
 
-    Bancos de Dados: * MySQL (Sequelize): Dados transacionais (Usuários, Solicitações, Cursos).
+    Bancos de Dados: * MySQL (Sequelize): Regras de Negócio e Casos de Uso do fluxo princial (Usuários, Solicitações, Cursos).
                      * MongoDB (Mongoose): Logs de auditoria e histórico de ações.
 
-    Infraestrutura: Docker & Docker Compose
+    Conteinerização: Docker & Docker Compose
 
     Segurança: JWT (JSON Web Tokens) & Bcrypt
 
@@ -33,13 +33,13 @@ Este projeto utiliza uma stack moderna e escalável:
 
 🏗️ Arquitetura
 
-O projeto foi construído seguindo os princípios da Clean Architecture, garantindo que as regras de negócio sejam independentes de ferramentas externas, frameworks ou bancos de dados.
+O projeto foi desenvolvido seguindo os princípios da Clean Architecture, garantindo que as regras de negócio sejam independentes de ferramentas externas, frameworks ou bancos de dados, sendo facilmente substituível.
 
     Domain: Contém as entidades/regras de negócio e interfaces de repositórios (contratos).
 
     Services: Casos de uso que processam a lógica da aplicação.
 
-    Infrastructure: Implementações técnicas de persistência, autenticação e provedores de e-mail.
+    Infrastructure: Implementações de banco de dados, autenticação e provedores de e-mail.
 
     Main: Camada de composição onde as instâncias são criadas via Factories (Injeção de Dependência).
 
@@ -47,9 +47,9 @@ O projeto foi construído seguindo os princípios da Clean Architecture, garanti
 
 Uma característica técnica marcante deste projeto é o uso de dois bancos de dados para propósitos diferentes:
 
-    MySQL: Gerencia a consistência relacional necessária para o fluxo de aprovação das solicitações.
+    MySQL: Responsável pelos Usuários (Aluno, Orientador do Curso e Administrador), Tipos de Equivalência, Solicitações, Documentos, dentro outros "models" necessários para satisfazer o curso.
 
-    MongoDB: Armazena logs de auditoria movimentação (ActionLogs) reaizada em uma solicitação, permitindo o acompnhamento do mesmo por meio de um histórico, sem que impacte no Banco de Dados Relacional.
+    MongoDB: Armazena um histórico de ações (ActionLogs) reaizadas em uma solicitação, permitindo o acompnhamento dos usuários autenticados, sem que impacte no Banco de Dados Relacional.
 
 🏁 Como Executar
 
@@ -78,4 +78,4 @@ O acesso é controlado por permissões granulares:
 
     Advisor: Analisa e adiciona observações às solicitações dos seus cursos vinculados.
 
-    Admin: Gestão total de usuários, cursos e configurações do sistema.
+    Admin: Gestão total de usuários, cursos, equivalências e configurações do sistema.
