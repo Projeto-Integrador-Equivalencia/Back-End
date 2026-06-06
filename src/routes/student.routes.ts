@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { StudentFactory } from '../main/factories/StudentFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 
+import { userSchema } from '../infrastructure/schemas/user.schemas';
 import { studentSchema } from '../infrastructure/schemas/student.schemas';
 import { validateBody } from '../middlewares/ValidateBody';
 
@@ -163,9 +164,14 @@ studentRouter.get('/search/email', authMiddleware, (req, res) => {
  *       '500':
  *         description: Internal server error
  */
-studentRouter.post('/', validateBody(studentSchema), (req, res) => {
-  return StudentFactory().create(req, res);
-});
+studentRouter.post(
+  '/',
+  validateBody(userSchema),
+  validateBody(studentSchema),
+  (req, res) => {
+    return StudentFactory().create(req, res);
+  },
+);
 
 studentRouter.patch('/:id', (req, res) => {
   return StudentFactory().create(req, res);
