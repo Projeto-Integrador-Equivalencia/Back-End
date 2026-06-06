@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { email, z } from 'zod';
 import { cpf } from 'cpf-cnpj-validator';
 import { isPhone } from 'brazilian-values';
 
@@ -8,13 +8,16 @@ export const studentSchema = z.object({
     .min(3, 'Nome deve ter um mínimo de 3 caracteres.')
     .max(100, 'Nome deve ter um máximo de 100 caracteres.'),
 
-  email: z.email('Email é obrigatório.').refine((email) => {
-    (email.endsWith('@cps.aluno.sp.gov.br') || email.endsWith('@cps.sp.gov.br'),
+  email: z
+    .email('Email é obrigatório.')
+    .refine(
+      (email) =>
+        email.endsWith('@aluno.cps.sp.gov.br') ||
+        email.endsWith('@cps.sp.gov.br'),
       {
-        message:
-          'Apenas emails do Centro Paula Souza podem usufruir deste sistema.',
-      });
-  }),
+        message: 'Apenas emails do Centro Paula Souza podem acessar o sistema.',
+      },
+    ),
 
   password: z
     .string('Senha é obrigatório.')
@@ -24,11 +27,8 @@ export const studentSchema = z.object({
   cpf: z
     .string('CPF é obrigatório.')
     .min(11, 'CPF incompleto')
-    .refine((val) => {
-      (cpf.isValid(val),
-        {
-          message: `CPF inválido`,
-        });
+    .refine((val) => cpf.isValid(val), {
+      message: 'CPF inválido.',
     }),
 
   rg: z
@@ -41,10 +41,9 @@ export const studentSchema = z.object({
     .min(9, 'O RA deve possuir ao menos 9 caracteres.')
     .max(10, 'O RA deve possuir no máximo 10 caracteres.'),
 
-  tel: z.string('Telefone é obrigatório.').refine((val) => {
-    (isPhone(val),
-      {
-        message: 'Telefone inválido.',
-      });
+  tel: z.string('Telefone é obrigatório.').refine((val) => isPhone(val), {
+    message: 'Telefone inválido.',
   }),
+
+  courseId: z.number('ID do Curso deve ser um número válido.'),
 });

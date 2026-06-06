@@ -163,11 +163,11 @@ studentRouter.get('/search/email', authMiddleware, (req, res) => {
  *       '500':
  *         description: Internal server error
  */
-studentRouter.post('/', (req, res) => {
+studentRouter.post('/', validateBody(studentSchema), (req, res) => {
   return StudentFactory().create(req, res);
 });
 
-studentRouter.patch('/:id', validateBody(studentSchema), (req, res) => {
+studentRouter.patch('/:id', (req, res) => {
   return StudentFactory().create(req, res);
 });
 
