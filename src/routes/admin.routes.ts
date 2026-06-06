@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { AdminFactory } from '../main/factories/AdminFactory';
 import { authMiddleware } from '../infrastructure/http/middlewares/AuthMiddleware';
 import { authorize } from '../infrastructure/http/middlewares/RoleMiddleware';
+import { validateBody } from '../middlewares/ValidateBody';
+import { userSchema } from '../infrastructure/schemas/user.schemas';
 
 const adminRouter = Router();
 
@@ -171,6 +173,7 @@ adminRouter.post(
   '/',
   authMiddleware,
   authorize(['administrator']),
+  validateBody(userSchema),
   (req, res) => {
     return AdminFactory().create(req, res);
   },

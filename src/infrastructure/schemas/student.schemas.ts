@@ -1,36 +1,7 @@
-import { email, z } from 'zod';
-import { cpf } from 'cpf-cnpj-validator';
+import { z } from 'zod';
 import { isPhone } from 'brazilian-values';
 
-export const studentSchema = z.object({
-  name: z
-    .string('Nome é obrigatório')
-    .min(3, 'Nome deve ter um mínimo de 3 caracteres.')
-    .max(100, 'Nome deve ter um máximo de 100 caracteres.'),
-
-  email: z
-    .email('Email é obrigatório.')
-    .refine(
-      (email) =>
-        email.endsWith('@aluno.cps.sp.gov.br') ||
-        email.endsWith('@cps.sp.gov.br'),
-      {
-        message: 'Apenas emails do Centro Paula Souza podem acessar o sistema.',
-      },
-    ),
-
-  password: z
-    .string('Senha é obrigatório.')
-    .min(8, 'A senha deve um mínimo de 8 caracteres.')
-    .max(100, 'A senha possui um máximo de 100 caracteres.'),
-
-  cpf: z
-    .string('CPF é obrigatório.')
-    .min(11, 'CPF incompleto')
-    .refine((val) => cpf.isValid(val), {
-      message: 'CPF inválido.',
-    }),
-
+export const studentSchema = z.looseObject({
   rg: z
     .string('RG é obrigatório.')
     .min(8, 'O RG deve possuir ao menos 8 caracteres')
