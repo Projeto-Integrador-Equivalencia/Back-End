@@ -89,8 +89,6 @@ equivalencyRouter.get('/search', authMiddleware, (req, res) => {
  * @swagger
  * /equivalencies/{id}:
  *   get:
- *     security:
- *       - bearerAuth: []
  *     tags:
  *       - Equivalency
  *     summary: Get equivalency by ID.
