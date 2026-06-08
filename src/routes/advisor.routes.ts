@@ -70,7 +70,7 @@ const advisorRouter = Router();
 advisorRouter.get(
   '/:id',
   authMiddleware,
-  authorize(['advisor', 'administrator']),
+  authorize(['student', 'advisor', 'administrator']),
   (req, res) => {
     return AdvisorFactory().getById(req, res);
   },
@@ -172,7 +172,7 @@ advisorRouter.get(
 advisorRouter.post(
   '/',
   authMiddleware,
-  authorize(['administrator', 'administrator']),
+  authorize(['administrator']),
   validateBody(userSchema),
   (req, res) => {
     return AdvisorFactory().create(req, res);
