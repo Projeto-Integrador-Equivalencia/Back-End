@@ -167,11 +167,8 @@ requestRoutes.get('/:id', authMiddleware, (req, res) =>
  *       '500':
  *         description: Internal server error
  */
-requestRoutes.get(
-  '/student/:studentId',
-  authMiddleware,
-  authorize(['student', 'advisor', 'administrator']),
-  (req, res) => requestController.findByStudent(req, res),
+requestRoutes.get('/student/:studentId', authMiddleware, (req, res) =>
+  requestController.findByStudent(req, res),
 );
 
 /**
